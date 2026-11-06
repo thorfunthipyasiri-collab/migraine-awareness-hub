@@ -86,6 +86,7 @@ footer{text-align:center;color:#817c9a;font-size:11px;padding:20px 8px}
 .quick-note .note-icon{font-size:22px}
 .quick-note strong{font-size:13px;color:#382f7a;display:block;margin-bottom:4px}
 .quick-note p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+.form-label{display:block;font-size:13px;font-weight:700;color:var(--deep);margin:13px 0 6px}.field{width:100%;border:1px solid #ded9f2;border-radius:12px;padding:11px;background:#fff;color:var(--ink);font:inherit;font-size:13px}.check-row{display:flex;align-items:flex-start;gap:9px;padding:9px 0;font-size:13px;color:#45425d}.check-row input{margin-top:2px;flex:0 0 auto}.feature-result{padding:16px;border-radius:17px;background:linear-gradient(135deg,#efebff,#fff0f7);margin:12px 0}.history-item{background:#fff;border:1px solid #efecf8;border-radius:15px;padding:13px;margin:10px 0}.history-item h4{margin:0 0 6px;color:var(--deep)}
 @media(min-width:700px){body{padding:20px 0}.app{border-radius:28px;box-shadow:0 15px 60px #33247720;min-height:calc(100vh - 40px)}.bottom-nav{bottom:20px;border-radius:0 0 28px 28px}}
 @media(max-width:360px){.screen{padding-left:14px;padding-right:14px}.hero h2{font-size:21px}.menu-card{padding:14px 10px}}
 </style>
@@ -115,6 +116,9 @@ footer{text-align:center;color:#817c9a;font-size:11px;padding:20px 8px}
     <button class="menu-card" onclick="showScreen('learn')"><span class="emoji">📚</span><strong>Learn About Migraine</strong><small>Explore 9 educational topics</small></button>
     <button class="menu-card" onclick="showScreen('quiz')"><span class="emoji">✧</span><strong>Knowledge Quiz</strong><small>Check what you have learned</small></button>
     <button class="menu-card" onclick="showScreen('about')"><span class="emoji">ⓘ</span><strong>About This App</strong><small>Purpose and information</small></button>
+<button class="menu-card" onclick="showScreen('risk')"><span class="emoji">📊</span><strong>Daily Risk Check</strong><small>Notice possible contributing factors</small></button>
+<button class="menu-card" onclick="showScreen('reminder')"><span class="emoji">⏰</span><strong>Reminders</strong><small>Set gentle daily routine reminders</small></button>
+<button class="menu-card" onclick="showScreen('diary')"><span class="emoji">📔</span><strong>Migraine Diary</strong><small>Record symptoms and possible triggers</small></button>
   </div>
   <div class="quick-note"><span class="note-icon">💜</span><div><strong>Learn at your own pace</strong><p>Read reliable educational information in English and Thai, then explore the references provided with each topic.</p></div></div>
   <div class="info-card warning"><h3>Important health reminder</h3><p class="subtext">This app is for education only. It cannot diagnose migraine or replace advice from a qualified healthcare professional.</p><button class="secondary" onclick="showScreen('warning')">View medical warning</button></div>
@@ -140,6 +144,43 @@ footer{text-align:center;color:#817c9a;font-size:11px;padding:20px 8px}
   <div id="checker-content"></div>
 </section>
 
+<section id="risk" class="screen">
+ <div class="page-heading"><button class="back" onclick="showScreen('home')">‹</button><h2>Daily Risk Check</h2></div>
+ <p class="subtext">Check factors that may be associated with migraine for some people. This is a self-observation tool, not a prediction or diagnosis.</p>
+ <div class="question-card"><h3>How have you been today? / วันนี้คุณเป็นอย่างไรบ้าง</h3><p class="small">Select all that apply. / เลือกได้มากกว่าหนึ่งข้อ</p>
+ <label class="check-row"><input type="checkbox" class="risk-factor" value="Sleep was shorter or less regular than usual"> Sleep was shorter or less regular than usual / นอนน้อยหรือเวลานอนไม่สม่ำเสมอ</label>
+ <label class="check-row"><input type="checkbox" class="risk-factor" value="Skipped or delayed a meal"> Skipped or delayed a meal / ข้ามมื้ออาหารหรือกินไม่ตรงเวลา</label>
+ <label class="check-row"><input type="checkbox" class="risk-factor" value="May not have had enough fluids"> May not have had enough fluids / ดื่มน้ำไม่เพียงพอ</label>
+ <label class="check-row"><input type="checkbox" class="risk-factor" value="Felt stressed or overwhelmed"> Felt stressed or overwhelmed / รู้สึกเครียดหรือกดดัน</label>
+ <label class="check-row"><input type="checkbox" class="risk-factor" value="Noticed a personal pattern or possible trigger"> Noticed a personal pattern or possible trigger / พบสิ่งที่อาจเกี่ยวข้องกับอาการของตนเอง</label>
+ <h3 style="margin-top:18px">Early signs you noticed / สัญญาณหรืออาการที่สังเกตพบ</h3>
+ <p class="small">These can have many causes and do not confirm that a migraine is coming. / อาการเหล่านี้อาจเกิดได้จากหลายสาเหตุและไม่สามารถยืนยันว่าจะเกิดไมเกรน</p>
+ <label class="check-row"><input type="checkbox" class="early-sign" value="Unusual tiredness or frequent yawning"> Unusual tiredness or frequent yawning / เหนื่อยผิดปกติหรือหาวบ่อย</label>
+ <label class="check-row"><input type="checkbox" class="early-sign" value="Mood or concentration changes"> Mood or concentration changes / อารมณ์หรือสมาธิเปลี่ยนแปลง</label>
+ <label class="check-row"><input type="checkbox" class="early-sign" value="Neck stiffness"> Neck stiffness / คอตึง</label>
+ <label class="check-row"><input type="checkbox" class="early-sign" value="Light or sound sensitivity"> Light or sound sensitivity / ไวต่อแสงหรือเสียง</label>
+ <label class="check-row"><input type="checkbox" class="early-sign" value="Visual changes"> Visual changes / การมองเห็นเปลี่ยนแปลง</label>
+ <button class="primary" style="width:100%;margin-top:12px" onclick="evaluateRisk()">Review my day / ประเมินวันนี้</button></div>
+ <div id="risk-result" aria-live="polite"></div><p class="small">Having one or more factors does not mean a migraine will happen. Patterns differ between people. / การมีปัจจัยเหล่านี้ไม่ได้หมายความว่าจะเกิดไมเกรนแน่นอน</p>
+</section>
+<section id="reminder" class="screen">
+ <div class="page-heading"><button class="back" onclick="showScreen('home')">‹</button><h2>Gentle Reminders</h2></div>
+ <p class="subtext">Set a reminder for a helpful routine, such as drinking water, having a regular meal, taking a screen break, or getting ready for bed.</p>
+ <div class="question-card"><label class="form-label" for="reminder-type">Reminder / สิ่งที่ต้องการเตือน</label>
+ <select class="field" id="reminder-type"><option value="Drink some water / ดื่มน้ำ">Drink some water / ดื่มน้ำ</option><option value="Have a regular meal / รับประทานอาหาร">Have a regular meal / รับประทานอาหาร</option><option value="Take a screen or rest break / พักสายตาหรือพักผ่อน">Take a screen or rest break / พักสายตาหรือพักผ่อน</option><option value="Start winding down for sleep / เตรียมตัวเข้านอน">Start winding down for sleep / เตรียมตัวเข้านอน</option><option value="Write in your migraine diary / บันทึกไดอารี่">Write in your migraine diary / บันทึกไดอารี่</option></select>
+ <label class="form-label" for="reminder-time">Date and time / วันและเวลา</label><input class="field" type="datetime-local" id="reminder-time">
+ <label class="check-row" style="margin-top:12px"><input type="checkbox" id="reminder-daily"> Repeat every day / เตือนซ้ำทุกวัน</label>
+ <button class="primary" style="width:100%;margin-top:12px" onclick="enableLocalNotifications()">Enable notifications / อนุญาตการแจ้งเตือน</button><button class="primary" style="width:100%;margin-top:14px" onclick="saveReminder()">Save reminder / บันทึกการเตือน</button></div>
+ <div id="notification-permission" class="info-card" aria-live="polite"></div><div id="reminder-status" class="info-card" aria-live="polite"></div><div class="info-card"><h3>Privacy & notification limits / ความเป็นส่วนตัวและข้อจำกัด</h3><p class="small">Your reminders, risk checks, and diary stay in this browser on this device. No health data is sent to OneSignal or another notification provider. Scheduled alerts can only be checked while this website is open and active. They are not guaranteed after the app/browser is fully closed. / ข้อมูลการเตือน ผลประเมิน และไดอารี่เก็บไว้ในเบราว์เซอร์ของอุปกรณ์นี้ ไม่ส่งข้อมูลสุขภาพไปยัง OneSignal หรือผู้ให้บริการแจ้งเตือน การตรวจสอบเวลาเตือนทำได้เมื่อเปิดเว็บไซต์และเว็บไซต์ทำงานอยู่เท่านั้น ไม่รับประกันเมื่อปิดแอปหรือเบราว์เซอร์ทั้งหมด</p></div>
+</section>
+<section id="diary" class="screen">
+ <div class="page-heading"><button class="back" onclick="showScreen('home')">‹</button><h2>Migraine Diary</h2></div><p class="subtext">Record what you notice over time. Entries stay in this browser on this device and are not sent to a server.</p>
+ <div class="question-card"><label class="form-label" for="diary-date">Date / วันที่</label><input class="field" type="date" id="diary-date">
+ <label class="form-label" for="diary-duration">Duration / ระยะเวลา</label><select class="field" id="diary-duration"><option>Not sure / ไม่แน่ใจ</option><option>Under 1 hour / น้อยกว่า 1 ชั่วโมง</option><option>1–4 hours / 1–4 ชั่วโมง</option><option>4–12 hours / 4–12 ชั่วโมง</option><option>More than 12 hours / มากกว่า 12 ชั่วโมง</option></select>
+ <p class="form-label">Symptoms / อาการที่พบ</p><label class="check-row"><input type="checkbox" name="diary-symptom" value="Headache / ปวดศีรษะ"> Headache / ปวดศีรษะ</label><label class="check-row"><input type="checkbox" name="diary-symptom" value="Nausea / คลื่นไส้"> Nausea / คลื่นไส้</label><label class="check-row"><input type="checkbox" name="diary-symptom" value="Light or sound sensitivity / ไวต่อแสงหรือเสียง"> Light or sound sensitivity / ไวต่อแสงหรือเสียง</label><label class="check-row"><input type="checkbox" name="diary-symptom" value="Visual changes / การมองเห็นเปลี่ยนแปลง"> Visual changes / การมองเห็นเปลี่ยนแปลง</label><label class="check-row"><input type="checkbox" name="diary-symptom" value="Dizziness / เวียนศีรษะ"> Dizziness / เวียนศีรษะ</label>
+ <label class="form-label" for="diary-triggers">Possible factors noticed / ปัจจัยที่อาจเกี่ยวข้อง</label><input class="field" id="diary-triggers" placeholder="e.g. poor sleep, stress / เช่น นอนน้อย เครียด"><label class="form-label" for="diary-notes">Notes / บันทึกเพิ่มเติม</label><textarea class="field" id="diary-notes" rows="3" placeholder="Anything you want to remember / สิ่งที่ต้องการบันทึก"></textarea><button class="primary" style="width:100%;margin-top:14px" onclick="saveDiaryEntry()">Save diary entry / บันทึก</button></div>
+ <h3 class="section-title">Your history / ประวัติที่บันทึก</h3><div id="diary-history"></div><p class="small">A diary can help you discuss patterns with a healthcare professional. It cannot confirm a diagnosis. / ไดอารี่ช่วยให้พูดคุยเรื่องรูปแบบอาการกับบุคลากรทางการแพทย์ได้ แต่ไม่สามารถยืนยันการวินิจฉัย</p>
+</section>
 <section id="quiz" class="screen">
   <div class="page-heading"><button class="back" onclick="showScreen('home')">‹</button><h2>Knowledge Quiz</h2></div>
   <p class="subtext">Test your understanding of migraine. This quiz is for learning, not diagnosis.</p>
@@ -174,7 +215,7 @@ if ("serviceWorker" in navigator) {
 }
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.screen===id || (id==='checker'&&b.dataset.screen==='home') || (id==='warning'&&b.dataset.screen==='about')));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.screen===id || (['checker','risk','reminder','diary'].includes(id)&&b.dataset.screen==='home') || (id==='warning'&&b.dataset.screen==='about')));
   window.scrollTo({top:0,behavior:'smooth'});
 }
 const topics = [
@@ -284,6 +325,63 @@ function nextCheck(){if(!checkAnswers[checkStep])return;checkStep++;renderChecke
 function previousCheck(){if(checkStep>0){checkStep--;renderChecker()}}
 function resetChecker(){checkStep=0;checkAnswers=[];renderChecker()}
 renderChecker();
+
+// Local-only reminders and self-observation. No clinical prediction is made.
+function getLocalJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch(e){return fallback}}
+function getEarlySigns(){return [...document.querySelectorAll('.early-sign:checked')].map(x=>x.value)}
+function evaluateRisk(){
+ const selected=[...document.querySelectorAll('.risk-factor:checked')].map(x=>x.value);
+ const signs=getEarlySigns();
+ const date=new Date().toISOString().slice(0,10);
+ const record={date,factors:selected,signs,createdAt:Date.now()};
+ const history=getLocalJSON('mahRiskHistory',[]);history.unshift(record);localStorage.setItem('mahRiskHistory',JSON.stringify(history.slice(0,90)));
+ const hasObservations=selected.length>0||signs.length>0;
+ const title=hasObservations?'Things to notice / สิ่งที่ควรสังเกต':'No items selected / ยังไม่ได้เลือกรายการ';
+ const advice=hasObservations?'Consider a gentle break and your usual self-care routine. Notice whether these observations match your own past diary entries. This does not mean a migraine will happen. / ลองพักผ่อนตามความเหมาะสมและสังเกตว่ารายการเหล่านี้ตรงกับบันทึกอาการเดิมของคุณหรือไม่ ไม่ได้หมายความว่าจะเกิดไมเกรนแน่นอน':'Continue your usual routine and notice how you feel. / รักษากิจวัตรตามปกติและสังเกตความรู้สึกของตนเอง';
+ document.getElementById('risk-result').innerHTML=`<div class="feature-result"><h3>${title}</h3>${selected.length?'<p><b>Possible factors / ปัจจัยที่เลือก</b><br>'+selected.map(x=>'• '+escapeDiary(x)).join('<br>')+'</p>':''}${signs.length?'<p><b>Early signs noticed / สัญญาณที่สังเกตพบ</b><br>'+signs.map(x=>'• '+escapeDiary(x)).join('<br>')+'</p>':''}<p>${advice}</p><p class="small">This is not a risk score, prediction, or diagnosis. / นี่ไม่ใช่คะแนนความเสี่ยง การทำนาย หรือการวินิจฉัย</p></div>`;
+ if(hasObservations) showLocalNotice('A few things to notice','You selected possible factors or symptoms in your daily check. Review them in the app; this is not a migraine prediction.');
+}
+let reminderTimer=null;
+function getSavedReminder(){return getLocalJSON('mahReminder',null)}
+function displayReminder(){const r=getSavedReminder(),el=document.getElementById('reminder-status');if(!r){el.innerHTML='<p class="small">No reminder saved yet. / ยังไม่มีการตั้งเตือน</p>';return}el.innerHTML=`<h3>Saved reminder / การเตือนที่บันทึก</h3><p><b>${escapeDiary(r.text)}</b></p><p>${new Date(r.when).toLocaleString()}${r.repeatDaily?' · Repeats daily / ซ้ำทุกวัน':''}</p><button class="secondary" onclick="deleteReminder()">Delete reminder / ลบการเตือน</button>`}
+async function enableLocalNotifications(){
+ const el=document.getElementById('notification-permission');
+ if(!('Notification' in window)){el.innerHTML='<p class="small">Notifications are not supported in this browser. / เบราว์เซอร์นี้ไม่รองรับการแจ้งเตือน</p>';return}
+ try{const permission=await Notification.requestPermission();
+  if(permission==='granted'){el.innerHTML='<p class="small">Notifications enabled on this device. / อนุญาตการแจ้งเตือนบนอุปกรณ์นี้แล้ว</p>';showLocalNotice('Notifications are ready','Migraine Awareness Hub can show reminders while the app is open.');}
+  else{el.innerHTML='<p class="small">Permission was not granted. You can change it in device settings. / ยังไม่ได้อนุญาต สามารถเปลี่ยนได้ในการตั้งค่าอุปกรณ์</p>';}
+ }catch(e){el.innerHTML='<p class="small">Could not request notification permission here. Open the installed app from the Home Screen and try again. / ไม่สามารถขออนุญาตได้ ลองเปิดแอปจากหน้าจอโฮมอีกครั้ง</p>';}
+}
+async function showLocalNotice(title,body){
+ if('Notification' in window&&Notification.permission==='granted'){
+  try{if('serviceWorker' in navigator){const reg=await navigator.serviceWorker.ready;await reg.showNotification(title,{body,icon:'./icon-192.png',badge:'./icon-192.png',tag:'mah-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-')});return;}new Notification(title,{body});return;}catch(e){}
+ }
+ // In-app fallback only; never claim a background notification was sent.
+ const el=document.getElementById('notification-permission');if(el)el.innerHTML=`<p class="small"><b>${escapeDiary(title)}:</b> ${escapeDiary(body)}</p>`;
+}
+function saveReminder(){
+ const text=document.getElementById('reminder-type').value,when=document.getElementById('reminder-time').value,ts=new Date(when).getTime(),repeatDaily=document.getElementById('reminder-daily').checked;
+ if(!when||!Number.isFinite(ts)||ts<=Date.now()){alert('Please choose a future date and time. / กรุณาเลือกวันและเวลาในอนาคต');return}
+ localStorage.setItem('mahReminder',JSON.stringify({text,when:ts,notified:false,repeatDaily}));scheduleReminder();displayReminder();
+}
+function scheduleReminder(){if(reminderTimer)clearInterval(reminderTimer);checkReminderDue();reminderTimer=setInterval(checkReminderDue,15000)}
+function nextDailyOccurrence(ts){const d=new Date(ts);d.setDate(d.getDate()+1);return d.getTime()}
+async function checkReminderDue(){
+ const r=getSavedReminder();if(!r||r.notified||Date.now()<r.when)return;
+ await showLocalNotice('Migraine Awareness Hub',r.text);
+ if(r.repeatDaily){r.when=nextDailyOccurrence(r.when);r.notified=false;localStorage.setItem('mahReminder',JSON.stringify(r));}
+ else{r.notified=true;localStorage.setItem('mahReminder',JSON.stringify(r));}
+ displayReminder();
+}
+function deleteReminder(){localStorage.removeItem('mahReminder');if(reminderTimer)clearInterval(reminderTimer);displayReminder()}
+displayReminder();scheduleReminder();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkReminderDue()});window.addEventListener('focus',checkReminderDue);
+function getDiaryEntries(){try{return JSON.parse(localStorage.getItem('mahDiary')||'[]')}catch(e){return []}}
+function saveDiaryEntry(){const date=document.getElementById('diary-date').value||new Date().toISOString().slice(0,10),duration=document.getElementById('diary-duration').value,symptoms=[...document.querySelectorAll('input[name="diary-symptom"]:checked')].map(x=>x.value),triggers=document.getElementById('diary-triggers').value.trim(),notes=document.getElementById('diary-notes').value.trim();const entries=getDiaryEntries();entries.unshift({id:Date.now(),date,duration,symptoms,triggers,notes});localStorage.setItem('mahDiary',JSON.stringify(entries));document.querySelectorAll('input[name="diary-symptom"]').forEach(x=>x.checked=false);document.getElementById('diary-triggers').value='';document.getElementById('diary-notes').value='';renderDiary();alert('Diary entry saved on this device. / บันทึกไดอารี่ในอุปกรณ์นี้แล้ว')}
+function escapeDiary(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderDiary(){const el=document.getElementById('diary-history');if(!el)return;const entries=getDiaryEntries();if(!entries.length){el.innerHTML='<p class="small">No entries yet. / ยังไม่มีรายการบันทึก</p>';return}el.innerHTML=entries.map(e=>`<div class="history-item"><h4>${e.date}</h4><p class="small"><b>Duration:</b> ${e.duration}</p><p class="small"><b>Symptoms:</b> ${e.symptoms.length?e.symptoms.join(', '):'Not selected'}</p><p class="small"><b>Possible factors:</b> ${escapeDiary(e.triggers||'Not recorded')}</p><p class="small"><b>Notes:</b> ${escapeDiary(e.notes||'None')}</p><button class="secondary" onclick="deleteDiaryEntry(${e.id})">Delete / ลบ</button></div>`).join('')}
+function deleteDiaryEntry(id){localStorage.setItem('mahDiary',JSON.stringify(getDiaryEntries().filter(e=>e.id!==id)));renderDiary()}
+document.getElementById('diary-date').value=new Date().toISOString().slice(0,10);renderDiary();
 
 const quizQuestions=[
 {q:'Migraine is best described as:',a:['A neurological disorder','Only a sinus problem','An eye infection'],correct:0,ex:'Migraine is a neurological disorder involving the nervous system.'},
