@@ -1,24 +1,24 @@
-
 {
-  "name": "MIGRAINE AWARENESS HUB",
+  "name": "Migraine Awareness Hub",
   "short_name": "Migraine Hub",
-  "description": "Migraine awareness and education platform",
-  "start_url": "./",
+  "description": "Migraine education and private self-observation tools",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#F8F4FF",
-  "theme_color": "#B69AD9",
+  "background_color": "#f7f6fc",
+  "theme_color": "#6554c0",
   "icons": [
     {
-      "src": "./new-icon.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
